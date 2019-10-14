@@ -5,7 +5,7 @@ tags: [neovim, vim, rbenv, ruby]
 subtitle: Speeding up neovim
 ---
 I've been using [neovim](https://neovim.io/) for the last couple years, and so far LOVE it. I did however initially have an issue
-opening ruby files. The issue, is that it would LITERALLY take a few seconds to start up `neovim` whenever I opened `somefile.rb`.
+when opening ruby files. Opening ruby files would LITERALLY take `neovim` a few seconds to start up.
 
 ```
 nvim --startuptime neobaseline.log somefile.rb
@@ -13,7 +13,7 @@ nvim --startuptime neobaseline.log somefile.rb
 5149.924  000.013: --- NVIM STARTED ---
 ```
 I did some additional profiling with `vim`, and was getting similar results(albeit `vim` was a bit faster loading ruby files). Seeing slowness with
-vim confirmed that it wasn't an issue specifically with `neovim`. After doing some additional profiling and researching online, I was able to get
+vim confirmed that it wasn't just an issue specifically with `neovim`. After doing some additional profiling and researching online, I was able to get
 both `neovim` and `vim` to load significantly faster!
 
 ```
@@ -66,10 +66,9 @@ Plug 'w0rp/ale'
 ```
 
 ### Solution
-After a bit of research and some trial and error I found that using `rbenv` was a HUGE part of the problem. A ton of time was being spent by `neovim` and `vim` searching for the ruby binary and gems.
-Additionally the `provider/clipboard.vim` was taking a long time to load for `neovim`.
+After a bit of research and some trial and error I found that using `rbenv` was a significant part of the problem. A ton of time was being spent by `neovim` and `vim` searching for the ruby binary and gems.
+Additionally the `provider/clipboard.vim` was taking a long time to load for `neovim`.(This seemed to only be an issue for `neovim`).
 
-NOTE: I have my vim config split into multiple files, but you just have a `.vimrc`.
 
 1. Adding `Plug 'tpope/vim-rbenv'` to the top of my `.vimrc`, before most things were loaded, cut the startup time for `vim` by about half (**interestingly** enough, it didn't do a whole lot for `neovim`)
   ```vim
@@ -79,10 +78,12 @@ NOTE: I have my vim config split into multiple files, but you just have a `.vimr
   " look for ruby paths/gems etc
   Plug 'tpope/vim-rbenv'
   ```
+
 2. Updating my `plugins.vim` to use more "On-demand loading", helped a bit
   ```vim
   Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
   ```
+
 3. Specifying the ruby host prog in my `config.vim`(specifically for `neovim`)
   ```vim
   if has('nvim')
@@ -94,6 +95,7 @@ NOTE: I have my vim config split into multiple files, but you just have a `.vimr
   let ruby_spellcheck_strings = 1
   endif
   ```
+
 4. Specifying the clipboard settings
   ```vim
   if has('macunix')
