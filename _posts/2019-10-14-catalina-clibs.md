@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Installing Catalina clibs/headers
+title: Installing Catalina clibs/header files
 tags: [catalina, brew, nokogiri]
 subtitle: Catalina upgrade issues
 ---
