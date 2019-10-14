@@ -192,6 +192,10 @@ exclude:
   - LICENSE
   - README.md
   - Vagrantfile
+  - .rbenv-gemsets
+  - .ruby-version
+  - .gems
+  - .git
 
 # prose.io config
 prose:
