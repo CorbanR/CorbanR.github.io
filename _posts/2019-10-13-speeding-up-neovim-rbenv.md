@@ -4,15 +4,15 @@ title: Speeding up neovim when using rbenv
 tags: [neovim, vim, rbenv, ruby]
 subtitle: Speeding up neovim
 ---
-I've been using [neovim](https://neovim.io/) for the last couple years, and so far LOVE it. I did however initially have an issue
-when opening ruby files. Opening ruby files would LITERALLY take `neovim` a few seconds to start up.
+I've been using [neovim](https://neovim.io/) for the last couple of years, and so far LOVE it. I did, however, initially, have an issue
+when opening ruby files. Opening ruby files would quite literally take `neovim` a few seconds to start up.
 
 ```
 nvim --startuptime neobaseline.log somefile.rb
 1426.382  1296.813  1296.813: sourcing /../ftplugin/ruby.vim
 5149.924  000.013: --- NVIM STARTED ---
 ```
-I did some additional profiling with `vim`, and was getting similar results(albeit `vim` was a bit faster loading ruby files). Seeing slowness with
+I did some additional profiling with `vim` and was getting similar results(albeit `vim` was a bit faster at loading ruby files). Seeing slowness with
 vim confirmed that it wasn't just an issue specifically with `neovim`. After doing some additional profiling and researching online, I was able to get
 both `neovim` and `vim` to load significantly faster!
 
@@ -21,11 +21,10 @@ both `neovim` and `vim` to load significantly faster!
 
 037.137  000.002: --- VIM STARTED ---
 ```
-Before I get to far, lets go over my `neovim` setup(if you really don't care, skip to the solution section!).
+Before I get too far, let's go over my `neovim` setup(if you don't care, skip to the solution section!).
 
 ### Neovim/Vim setup
-I hate having a massive `.vimrc` file so I split out the configuration into multiple files.
-The config I use, works fully with both `neovim`, and `vim`
+I hate having a massive `.vimrc` file, so I split out the configuration into multiple files. The config I use works with both `neovim`, and `vim`.
 
 ```vim
 """"""""""Load Vim Config""""""""""""""
@@ -44,7 +43,7 @@ source ~/.vim/config/plugins.vim
 source ~/.vim/config/plugin-config.vim
 ```
 
-The plugin manger I use is [vim-plug](https://github.com/junegunn/vim-plug).
+The plugin manager I use is [vim-plug](https://github.com/junegunn/vim-plug).
 I won't post my whole `plugins.vim` file due to the size.
 
 ```vim
@@ -66,8 +65,8 @@ Plug 'w0rp/ale'
 ```
 
 ### Solution
-After a bit of research and some trial and error I found that using `rbenv` was a significant part of the problem. A ton of time was being spent by `neovim` and `vim` searching for the ruby binary and gems.
-Additionally the `provider/clipboard.vim` was taking a long time to load for `neovim`.(This seemed to only be an issue for `neovim`).
+After a bit of research and some trial and error, I found that using `rbenv` was a significant part of the problem. A ton of time was being spent by `neovim` and `vim` searching for the ruby binary and gems.
+Additionally, the `provider/clipboard.vim` was taking a long time to load for `neovim`.(This seemed only to be an issue for `neovim`).
 
 
 1. Adding `Plug 'tpope/vim-rbenv'` to the top of my `.vimrc`, before most things were loaded, cut the startup time for `vim` by about half (**interestingly** enough, it didn't do a whole lot for `neovim`)
@@ -104,7 +103,7 @@ Additionally the `provider/clipboard.vim` was taking a long time to load for `ne
   endif
   ```
 
-Both `vim` and `neovim` will now start almost instantaneously!!
+After making the config updates, both `vim` and `neovim` start almost instantaneously!
 
 ```
 049.027  000.004: --- NVIM STARTED ---
