@@ -13,7 +13,7 @@ let
     typescript
   ];
 
-  ruby = ruby_2_7;
+  ruby = ruby_3_0;
   rubyPkgs = [
     autoconf bash-completion bison
     docker-compose bzip2 cmake gcc
