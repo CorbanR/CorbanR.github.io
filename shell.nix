@@ -26,7 +26,7 @@ in mkShell rec {
 
   buildInputs = [
     nodejs
-  ] ++ nodePkgs ++ rubyPkgs ++ stdenv.lib.optional stdenv.isDarwin darwin_packages;
+  ] ++ nodePkgs ++ rubyPkgs ++ lib.optional stdenv.isDarwin darwin_packages;
 
   shellHook = ''
     mkdir -p .gems
