@@ -6,12 +6,10 @@ let
   inherit (darwin.apple_sdk.frameworks) CoreServices ApplicationServices Security;
   darwin_packages = [ CoreServices ApplicationServices Security];
 
-  nodejs = nodejs-12_x;
+  nodejs = nodejs-16_x;
   nodePackages = pkgs.nodePackages.override {inherit nodejs;};
 
-  nodePkgs = with nodePackages; [
-    typescript
-  ];
+  nodePkgs = with nodePackages; [];
 
   ruby = ruby_3_0;
   rubyPkgs = [
