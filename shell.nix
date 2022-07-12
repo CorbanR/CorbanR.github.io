@@ -11,7 +11,7 @@ let
 
   nodePkgs = with nodePackages; [];
 
-  ruby = ruby_3_0;
+  ruby = ruby_3_1;
   rubyPkgs = [
     autoconf bash-completion bison
     docker-compose bzip2 cmake gcc
