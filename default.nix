@@ -1,3 +1,4 @@
+{system ? builtins.currentSystem or "unknown-system"}:
 (import (
     let
       lock = builtins.fromJSON (builtins.readFile ./flake.lock);
@@ -9,4 +10,4 @@
   ) {
     src = ./.;
   })
-.shellNix
+.defaultNix

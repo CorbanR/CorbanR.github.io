@@ -12,6 +12,7 @@ gem 'jekyll-sitemap'
 gem 'kramdown'
 gem 'kramdown-parser-gfm'
 gem 'webrick'
+gem 'faraday-retry'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 # and associated library.
